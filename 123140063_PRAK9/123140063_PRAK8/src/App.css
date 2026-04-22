@@ -1,0 +1,262 @@
+/* --- RESET & FONT GLOBAL --- */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Mencegah munculnya scrollbar di layar utama */
+}
+
+/* --- KERANGKA UTAMA DASHBOARD --- */
+.dashboard-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8fafc;
+}
+
+/* --- SIDEBAR PANEL (KIRI) --- */
+.sidebar {
+  width: 340px;
+  background-color: #ffffff;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.brand-header {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  padding: 25px 20px;
+  color: white;
+  border-bottom: 4px solid #3b82f6;
+}
+
+.brand-header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; color: #f8fafc; letter-spacing: 0.5px;}
+.brand-header h2 { margin: 5px 0 0 0; font-size: 0.95rem; font-weight: 400; color: #94a3b8; }
+
+.sidebar-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto; /* Memungkinkan sidebar di-scroll jika kontennya panjang */
+}
+
+/* --- KARTU STATUS AKSES (LOGIN/LOGOUT) --- */
+.auth-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.3s ease;
+}
+.auth-card.admin-active { border-left: 4px solid #10b981; }
+.auth-card.public-active { border-left: 4px solid #ef4444; }
+
+.auth-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+.auth-icon { font-size: 24px; background: #f1f5f9; padding: 8px; border-radius: 50%; }
+
+.btn-action {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.btn-login { background: #3b82f6; color: white; }
+.btn-login:hover { background: #2563eb; }
+.btn-logout { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.btn-logout:hover { background: #fee2e2; }
+
+/* --- KARTU LEGENDA PETA --- */
+.legend-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 15px;
+}
+.legend-card h3 { margin: 0 0 12px 0; font-size: 14px; color: #334155; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;}
+.legend-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;}
+.legend-list li { display: flex; align-items: center; font-size: 13px; color: #475569; font-weight: 500;}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 12px;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.dot.brt { background-color: #D32F2F; }
+.dot.bus { background-color: #1976D2; }
+.dot.angkot { background-color: #388E3C; }
+
+/* --- KOTAK INFO --- */
+.info-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px; border-radius: 8px; font-size: 12px; color: #1e3a8a; line-height: 1.5; }
+
+/* --- FOOTER IDENTITAS MAHASISWA --- */
+.sidebar-footer {
+  padding: 15px 20px;
+  background: #f1f5f9;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+}
+.sidebar-footer p { margin: 2px 0; font-size: 11px; color: #64748b; }
+.sidebar-footer b { font-size: 13px; color: #0f172a; display: block; margin: 4px 0;}
+
+/* --- AREA PETA (KANAN) --- */
+.map-area {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+}
+
+/* --- KUSTOMISASI POPUP LEAFLET --- */
+.leaflet-popup-content-wrapper {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-tip {
+  background: #ffffff !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: #94a3b8 !important;
+  padding: 8px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #ef4444 !important;
+}
+
+/* =========================================
+   DESAIN HALAMAN LOGIN & REGISTER
+========================================= */
+.auth-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.auth-form-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.auth-header-text {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-header-text h2 {
+  margin: 0 0 8px 0;
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.auth-header-text p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.auth-input {
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #334155;
+  transition: all 0.2s ease;
+  outline: none;
+  background-color: #f8fafc;
+}
+
+.auth-input:focus {
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.auth-input::placeholder {
+  color: #94a3b8;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-btn.btn-primary {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.auth-btn.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.auth-btn.btn-success {
+  background: #10b981;
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.auth-btn.btn-success:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.auth-link a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+  color: #2563eb;
+}
