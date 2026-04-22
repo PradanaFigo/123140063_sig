@@ -1,118 +1,125 @@
-# 🗺️ WebGIS Transportasi Bandar Lampung (Full-Stack)
+# 🗺️ WebGIS Transportasi Bandar Lampung
 
-Sistem Informasi Geografis (WebGIS) *Full-Stack* untuk memetakan, memvisualisasikan, dan mengelola data spasial fasilitas transportasi umum (Halte BRT, Bus Reguler, dan Angkutan Kota) di wilayah Bandar Lampung.
+Sistem Informasi Geografis (WebGIS) **Full-Stack** untuk memetakan, memvisualisasikan, dan mengelola data spasial fasilitas transportasi umum (Halte BRT, Bus Reguler, dan Angkutan Kota) di wilayah **Bandar Lampung**.
 
-Proyek ini dikembangkan sebagai penyelesaian **Tugas Praktikum 9 - Sistem Informasi Geografis**, Program Studi Teknik Informatika, Institut Teknologi Sumatera (ITERA).
+Dikembangkan sebagai penyelesaian **Tugas Praktikum SIG (Pertemuan 7, 8 & 9)**
+Program Studi Teknik Informatika — Institut Teknologi Sumatera (ITERA)
 
 ---
 
 ## ✨ Fitur Utama
 
-- **Peta Interaktif Publik:** Menampilkan persebaran titik halte di atas peta dasar OpenStreetMap menggunakan React-Leaflet, lengkap dengan interaksi *hover* dan *popup* informatif.
-- **Sistem Keamanan Terpusat (JWT Auth):** Melindungi rute API untuk operasi modifikasi data menggunakan JSON Web Token (JWT).
-- **Manajemen Data Spasial (CRUD) Langsung dari Peta:**
-  - **Create:** Admin dapat menambahkan koordinat halte baru melalui form *modal* yang interaktif.
-  - **Read:** Penarikan data format GeoJSON dari pangkalan data spasial secara *real-time*.
-  - **Update:** Pengeditan detail atribut halte (nama, tipe, fasilitas, dsb) langsung melalui tombol di dalam *popup*.
-  - **Delete:** Penghapusan titik halte dengan validasi keamanan.
+- 🗺️ **Peta Interaktif Publik** — Menampilkan persebaran titik halte di atas peta OpenStreetMap dengan interaksi *hover* dan *popup* informatif
+- 🔐 **Autentikasi JWT** — Melindungi endpoint API untuk operasi modifikasi data menggunakan JSON Web Token
+- ⚙️ **CRUD Spasial Langsung dari Peta:**
+  - **Create** — Tambah koordinat halte baru via form modal interaktif
+  - **Read** — Tampil data GeoJSON dari database spasial secara real-time
+  - **Update** — Edit atribut halte langsung dari popup di peta
+  - **Delete** — Hapus titik halte dengan validasi keamanan
+- 🎨 **Styling Dinamis** — Warna marker berbeda per jenis transportasi (🔴 BRT · 🔵 Bus · 🟢 Angkot)
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-**Frontend:**
-- React JS + Vite
-- React-Leaflet (Pemetaan)
-- Axios (HTTP Client & Interceptors)
-- React-Router-DOM (Navigasi Halaman)
-- Vanilla CSS & Flexbox (UI/UX Dashboard)
-
-**Backend:**
-- Python FastAPI
-- Asyncpg (Asynchronous Database Driver)
-- Pydantic (Validasi Skema Data)
-- Passlib & Bcrypt (Hashing Password)
-- Python-Jose (Pemrosesan Token JWT)
-
-**Database:**
-- PostgreSQL
-- Ekstensi PostGIS (Pemrosesan Data Spasial)
+| Layer | Teknologi |
+|-------|-----------|
+| **Frontend** | React JS + Vite, React-Leaflet, Axios, React-Router-DOM, CSS3 |
+| **Backend** | Python FastAPI, Asyncpg, Pydantic, Passlib & Bcrypt, Python-Jose |
+| **Database** | PostgreSQL + PostGIS |
 
 ---
 
-## 🚀 Panduan Instalasi dan Menjalankan Aplikasi
+## ⚙️ Instalasi & Menjalankan Proyek
 
-Pastikan Anda telah menginstal Node.js, Python (3.9+), dan PostgreSQL dengan ekstensi PostGIS di komputer Anda.
+> **Prasyarat:** Node.js, Python 3.9+, PostgreSQL + ekstensi PostGIS
 
 ### 1. Persiapan Database
-1. Buka **pgAdmin 4** masuk database bernama `sig_123140063`.
-2. Aktifkan ekstensi spasial dengan menjalankan *query*: 
-   ```sql
-   CREATE EXTENSION postgis;
-Buat tabel users untuk sistem autentikasi:
 
-SQL
+Buka **pgAdmin 4**, buat database baru bernama `sig_123140063`, lalu jalankan query berikut:
+
+```sql
+-- Aktifkan ekstensi spasial
+CREATE EXTENSION postgis;
+
+-- Buat tabel autentikasi
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL
 );
-2. Konfigurasi Backend (FastAPI)
-Buka terminal dan arahkan ke direktori backend (123140063_PRAK7).
+```
 
-Buat dan aktifkan Virtual Environment:
+### 2. Konfigurasi Backend (FastAPI)
 
-Bash
+```bash
+# Masuk ke direktori backend
+cd 123140063_PRAK7
+
+# Buat dan aktifkan virtual environment
 python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Mac/Linux
 
-# Di Windows:
-venv\Scripts\activate
-# Di Mac/Linux:
-source venv/bin/activate
-Install seluruh pustaka yang dibutuhkan:
-
-Bash
+# Install dependensi
 pip install fastapi uvicorn asyncpg python-dotenv "python-jose[cryptography]" "passlib[bcrypt]" python-multipart bcrypt==3.2.0
-Buat file .env di direktori utama backend dan isi dengan konfigurasi database Anda:
+```
 
-Cuplikan kode
+Buat file `.env` di direktori backend:
+
+```env
 DATABASE_URL=postgresql://postgres:PASSWORD_PGADMIN_ANDA@localhost:5432/sig_123140063
-Jalankan server backend:
+```
 
-Bash
+Jalankan server:
+
+```bash
 uvicorn main:app --reload
-Backend akan berjalan di http://localhost:8000. Dokumentasi Swagger dapat diakses di http://localhost:8000/docs.
+```
 
-3. Konfigurasi Frontend (React JS)
-Buka terminal baru dan arahkan ke direktori frontend (123140063_PRAK8).
+> Backend berjalan di `http://localhost:8000`
+> Dokumentasi Swagger: `http://localhost:8000/docs`
 
-Install seluruh modul Node.js:
+### 3. Konfigurasi Frontend (React JS)
 
-Bash
+```bash
+# Masuk ke direktori frontend
+cd 123140063_PRAK8
+
+# Install modul
 npm install
-Jalankan server pengembangan Vite:
 
-Bash
+# Jalankan server development
 npm run dev
-Frontend akan berjalan di http://localhost:5173.
+```
 
-📖 Cara Penggunaan Sistem
-Buka peramban web dan akses http://localhost:5173/register untuk membuat akun Admin pertama Anda.
+> Frontend berjalan di `http://localhost:5173`
 
-Akses http://localhost:5173/login dan masuk menggunakan kredensial yang baru saja dibuat.
+---
 
-Setelah masuk, status di panel kiri akan berubah menjadi Admin Aktif dan tombol hijau "+ Tambah Halte Baru" akan muncul di pojok kanan atas peta.
+## 📖 Cara Penggunaan
 
-Klik pada titik halte mana pun di peta untuk memunculkan tombol Edit dan Hapus.
+1. Buka `http://localhost:5173/register` → buat akun Admin
+2. Login di `http://localhost:5173/login`
+3. Setelah login, panel kiri berubah menjadi **Admin Aktif** dan tombol **"+ Tambah Halte Baru"** muncul di pojok kanan atas peta
+4. Klik titik halte di peta untuk memunculkan tombol **Edit** dan **Hapus**
 
-📸 Dokumentasi Antarmuka (Screenshots)
-(Ganti baris ini dengan gambar screenshot Halaman Utama / Peta)
+---
 
-(Ganti baris ini dengan gambar screenshot Form Tambah/Edit Data)
+## 📸 Screenshot
 
-(Ganti baris ini dengan gambar screenshot Halaman Login/Register)
+| Halaman Peta | Form Tambah Halte | Halaman Login |
+|:---:|:---:|:---:|
+| *(screenshot)* | *(screenshot)* | *(screenshot)* |
 
-Dikembangkan oleh:
-👤 Pradana Figo Ariansya (NIM: 123140063)
+---
 
-Mahasiswa Teknik Informatika, Institut Teknologi Sumatera (ITERA).
+## 👤 Pengembang
+
+**Pradana Figo Ariansya**
+NIM: 123140063 · Kelas SIG-RB
+Teknik Informatika — Institut Teknologi Sumatera (ITERA)
+
+---
+
+*© 2026 Informatika ITERA — Sistem Informasi Geografi*

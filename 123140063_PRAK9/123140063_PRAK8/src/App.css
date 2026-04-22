@@ -1,12 +1,10 @@
-/* --- RESET & FONT GLOBAL --- */
 body, html, #root {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden; /* Mencegah munculnya scrollbar di layar utama */
+  overflow: hidden; 
 }
 
-/* --- KERANGKA UTAMA DASHBOARD --- */
 .dashboard-container {
   display: flex;
   width: 100vw;
@@ -14,7 +12,6 @@ body, html, #root {
   background-color: #f8fafc;
 }
 
-/* --- SIDEBAR PANEL (KIRI) --- */
 .sidebar {
   width: 340px;
   background-color: #ffffff;
@@ -40,10 +37,9 @@ body, html, #root {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-y: auto; /* Memungkinkan sidebar di-scroll jika kontennya panjang */
+  overflow-y: auto; 
 }
 
-/* --- KARTU STATUS AKSES (LOGIN/LOGOUT) --- */
 .auth-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -76,7 +72,6 @@ body, html, #root {
 .btn-logout { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
 .btn-logout:hover { background: #fee2e2; }
 
-/* --- KARTU LEGENDA PETA --- */
 .legend-card {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
@@ -98,11 +93,8 @@ body, html, #root {
 .dot.brt { background-color: #D32F2F; }
 .dot.bus { background-color: #1976D2; }
 .dot.angkot { background-color: #388E3C; }
-
-/* --- KOTAK INFO --- */
 .info-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px; border-radius: 8px; font-size: 12px; color: #1e3a8a; line-height: 1.5; }
 
-/* --- FOOTER IDENTITAS MAHASISWA --- */
 .sidebar-footer {
   padding: 15px 20px;
   background: #f1f5f9;
@@ -112,14 +104,12 @@ body, html, #root {
 .sidebar-footer p { margin: 2px 0; font-size: 11px; color: #64748b; }
 .sidebar-footer b { font-size: 13px; color: #0f172a; display: block; margin: 4px 0;}
 
-/* --- AREA PETA (KANAN) --- */
 .map-area {
   flex: 1;
   height: 100vh;
   position: relative;
 }
 
-/* --- KUSTOMISASI POPUP LEAFLET --- */
 .leaflet-popup-content-wrapper {
   background: #ffffff !important;
   border-radius: 12px !important;
@@ -140,9 +130,7 @@ body, html, #root {
   color: #ef4444 !important;
 }
 
-/* =========================================
-   DESAIN HALAMAN LOGIN & REGISTER
-========================================= */
+/*DESAIN HALAMAN LOGIN & REGISTE*/
 .auth-page-container {
   display: flex;
   justify-content: center;
