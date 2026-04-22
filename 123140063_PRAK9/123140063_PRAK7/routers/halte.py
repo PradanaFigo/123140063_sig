@@ -1,14 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from database import get_pool
 from models import HalteCreate
-from utils.auth import get_current_user # <-- Memanggil fungsi keamanan token JWT
+from utils.auth import get_current_user 
 import json
 
 router = APIRouter(prefix="/api/halte", tags=["Transportasi - Data Halte"])
-
-# ==========================================
-# RUTE PUBLIK (TIDAK PERLU LOGIN)
-# ==========================================
 
 # 1. GET ALL
 @router.get("/")
@@ -71,12 +67,9 @@ async def get_nearby_halte(lat: float, lon: float, radius_meter: int = 1000):
         """, lon, lat, radius_meter)
         return [dict(row) for row in rows]
 
-# ==========================================
 # RUTE TERPROTEKSI (WAJIB LOGIN ADMIN)
-# ==========================================
 
 # 5. POST (CREATE)
-# Ditambahkan Depends(get_current_user) agar hanya admin yang bisa menambah data
 @router.post("/", status_code=201)
 async def create_halte(data: HalteCreate, user: str = Depends(get_current_user)):
     pool = await get_pool()
@@ -88,7 +81,7 @@ async def create_halte(data: HalteCreate, user: str = Depends(get_current_user))
         """, data.nama, data.kode, data.jenis, data.alamat, data.kapasitas, data.fasilitas, data.longitude, data.latitude)
         return dict(row)
 
-# 6. PUT (UPDATE) - FITUR BARU UNTUK PRAKTIKUM 9
+# 6. PUT (UPDATE) 
 @router.put("/{id}")
 async def update_halte(id: int, data: HalteCreate, user: str = Depends(get_current_user)):
     pool = await get_pool()
@@ -111,7 +104,6 @@ async def update_halte(id: int, data: HalteCreate, user: str = Depends(get_curre
         return dict(row)
 
 # 7. DELETE 
-# Ditambahkan Depends(get_current_user) agar hanya admin yang bisa menghapus data
 @router.delete("/{id}", status_code=204)
 async def delete_halte(id: int, user: str = Depends(get_current_user)):
     pool = await get_pool()

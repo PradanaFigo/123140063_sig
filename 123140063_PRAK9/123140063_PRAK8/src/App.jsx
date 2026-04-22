@@ -17,7 +17,6 @@ function Dashboard() {
                 </div>
                 
                 <div className="sidebar-content">
-                    {/* KARTU STATUS USER */}
                     <div className={`auth-card ${user ? 'admin-active' : 'public-active'}`}>
                         <div className="auth-header">
                             <span className="auth-icon">{user ? '👨‍💻' : '👁️'}</span>
@@ -42,7 +41,6 @@ function Dashboard() {
                         )}
                     </div>
 
-                    {/* KARTU LEGENDA PETA */}
                     <div className="legend-card">
                         <h3>📍 Legenda Transportasi</h3>
                         <ul className="legend-list">
@@ -52,7 +50,6 @@ function Dashboard() {
                         </ul>
                     </div>
                     
-                    {/* INFO TAMBAHAN */}
                     <div className="info-box">
                         <p>ℹ️ <b>Petunjuk:</b> Klik titik pada peta untuk melihat detail fasilitas dan rute halte.</p>
                     </div>

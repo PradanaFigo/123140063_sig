@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  
 from contextlib import asynccontextmanager
 from database import get_pool, close_pool
-from routers import halte, auth  # <-- Cukup satu baris ini saja untuk router
+from routers import halte, auth  
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -19,7 +19,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Konfigurasi CORS agar React (Frontend) tidak diblokir
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -28,6 +27,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mendaftarkan rute API
 app.include_router(auth.router)
 app.include_router(halte.router)
