@@ -110,7 +110,7 @@ npm run dev
 
 | Halaman Peta | Form Tambah Halte | Halaman Login |
 |:---:|:---:|:---:|
-| *(screenshot)* | *(screenshot)* | *(screenshot)* |
+| <img width="940" height="450" alt="image" src="https://github.com/user-attachments/assets/5cb42878-2142-416f-9ac1-61a86a7bb076" />| <img width="940" height="576" alt="image" src="https://github.com/user-attachments/assets/ab2aac57-f487-47ff-a26a-8fb9d8188d2b" />| <img width="940" height="442" alt="image" src="https://github.com/user-attachments/assets/7baf8807-b8ab-4bd7-81eb-ab4bdcf673ec" />|
 
 ---
 
