@@ -31,12 +31,12 @@ Tugas ini disusun untuk memenuhi Praktikum 10 Mata Kuliah Sistem Informasi Geogr
 ### 1. Proses Deteksi AI di Terminal
 *Sistem berhasil membaca citra satelit, mendeteksi objek lahan, mengekstrak koordinat spasial, dan menyimpannya secara otomatis ke PostGIS.*
 
-![Proses Terminal](taruh_link_atau_path_gambar_terminal_disini.png)
+<img width="940" height="168" alt="image" src="https://github.com/user-attachments/assets/6908a149-5a12-477d-9fb5-e277ea6a692d" />
 
 ### 2. Visualisasi WebGIS
 *Titik-titik hasil deteksi AI divisualisasikan secara presisi di atas peta interaktif OpenStreetMap.*
 
-![Hasil WebGIS](taruh_link_atau_path_gambar_webgis_disini.png)
+<img width="940" height="501" alt="image" src="https://github.com/user-attachments/assets/e2a5d459-6b96-4c42-91e2-65c298987c5d" />
 
 ---
 
