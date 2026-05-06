@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  
 from contextlib import asynccontextmanager
 from database import get_pool, close_pool
-from routers import halte, auth  
+
+# Importnya cukup ditulis satu baris saja biar rapi
+from routers import halte, auth, ai  
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,5 +29,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# --- DAFTAR ROUTER ---
 app.include_router(auth.router)
 app.include_router(halte.router)
+
+# INI DIA PENYELAMATNYA! Kita daftarkan router AI dengan prefix /api/ai
+app.include_router(ai.router, prefix="/api/ai", tags=["AI"])

@@ -5,23 +5,36 @@ import api from '../config/api';
 
 function MapView({ isAdmin }) {
   const [geojsonData, setGeojsonData] = useState(null);
+  const [aiData, setAiData] = useState(null); // State baru untuk data AI
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     id: null, nama: '', kode: '', jenis: 'Bus', alamat: '', 
     kapasitas: 20, fasilitas: '', longitude: 105.26, latitude: -5.39
   });
 
+  // Fetch data Halte (Manual)
   const fetchGeoJSON = async () => {
     try {
       const response = await api.get('/halte/data/geojson');
       setGeojsonData(response.data);
     } catch (error) {
-      console.error("Gagal mengambil data:", error);
+      console.error("Gagal mengambil data halte:", error);
+    }
+  };
+
+  // Fetch data AI (Otomatis dari YOLOv8)[cite: 1]
+  const fetchAIData = async () => {
+    try {
+      const response = await api.get('/ai/geojson');
+      setAiData(response.data);
+    } catch (error) {
+      console.error("Gagal mengambil data AI:", error);
     }
   };
 
   useEffect(() => {
     fetchGeoJSON();
+    fetchAIData(); // Panggil data AI saat komponen dimuat[cite: 1]
 
     // Event Listener untuk tombol Edit & Hapus di dalam Popup Leaflet
     const handleHapus = async (e) => {
@@ -191,9 +204,40 @@ function MapView({ isAdmin }) {
 
       <MapContainer center={[-5.385, 105.26]} zoom={13} style={{ height: '100%', width: '100%', zIndex: 1 }} zoomControl={false}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; OpenStreetMap contributors' />
+        
+        {/* Layer 1: Data Halte Manual */}
         {geojsonData && (
           <GeoJSON key={JSON.stringify(geojsonData)} data={geojsonData} style={getStyle} pointToLayer={pointToLayer} onEachFeature={onEachFeature} />
         )}
+
+        {/* Layer 2: Data Deteksi AI (Warna Ungu)[cite: 1] */}
+        {aiData && (
+          <GeoJSON 
+            key={"ai-" + JSON.stringify(aiData)} 
+            data={aiData} 
+            pointToLayer={(feature, latlng) => {
+              return L.circleMarker(latlng, { 
+                radius: 6, 
+                fillColor: "#a855f7", // Warna ungu agar beda dari halte[cite: 1]
+                color: "#ffffff", 
+                weight: 2, 
+                fillOpacity: 0.9 
+              });
+            }}
+            onEachFeature={(feature, layer) => {
+              const props = feature.properties;
+              layer.bindPopup(`
+                <div style="font-family: 'Segoe UI', Tahoma, sans-serif; text-align:center; min-width: 150px; padding: 5px;">
+                  <b style="color:#a855f7; font-size: 15px;">🤖 AI Detection</b><br/>
+                  <hr style="margin:8px 0; border:0; border-top:1px solid #e2e8f0;"/>
+                  Objek: <b style="text-transform:uppercase; color: #1e293b;">${props.label}</b><br/>
+                  Akurasi: <b style="color: #3b82f6;">${Math.round(props.confidence * 100)}%</b>
+                </div>
+              `);
+            }} 
+          />
+        )}
+
       </MapContainer>
     </div>
   );
